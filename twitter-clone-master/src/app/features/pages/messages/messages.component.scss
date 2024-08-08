@@ -1,0 +1,151 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 70px);
+}
+
+.chat-list,
+.messages {
+  margin: 16px;
+  border-radius: 16px;
+}
+
+.chat-list {
+  width: 20%;
+  background: #c5cae9;
+}
+
+.messages {
+  width: 60%;
+  background: rgb(237, 237, 240);
+}
+
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .chat-list,
+  .messages {
+    width: 100%; /* Full width on smaller screens */
+    margin: 8px;
+  }
+}
+
+.search-input {
+  margin-top: 24px;
+  margin-left: 16px;
+}
+
+.chat-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.chat-name {
+  font-weight: 500;
+}
+
+.chat-date {
+  font-size: 0.7rem;
+  color: rgba(0,0,0, 0.7);
+}
+
+.message-header {
+  display: flex;
+  margin-top: 10px;
+}
+
+.message-header .header-image {
+  margin-left: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+h2 {
+  padding: 0;
+  margin-left: 20px;
+}
+
+.chat-area {
+  background-color: #e5ddd5;
+  padding: 10px;
+  height: 500px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.chat-area > :first-child {
+  margin-top: auto;
+}
+
+.chat-bubble-container {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.sender .chat-bubble {
+  margin-left: auto;
+  background-color: #dcf8c6;
+}
+
+.chat-bubble-container {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.sender .chat-bubble {
+  margin-left: auto;
+  background-color: #dcf8c6; /* Green background for sent messages */
+}
+
+.receiver .chat-bubble {
+  margin-right: auto;
+  background-color: white; /* White background for received messages */
+}
+
+.chat-bubble {
+  color: black;
+  border-radius: 7.5px;
+  padding: 6px 12px;
+  max-width: 60%;
+  box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+  word-wrap: break-word;
+}
+.chat-bubble {
+  color: black;
+  border-radius: 7.5px;
+  padding: 6px 12px;
+  max-width: 60%;
+  box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+  word-wrap: break-word;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  border-radius: 7.5px;
+}
+
+.pdf-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0; /* Light grey background */
+  border: 1px solid #d0d0d0; /* Slight border for definition */
+  border-radius: 20px; /* Rounded corners for modern look */
+  padding: 18px 18px; /* Padding around the content */
+  margin: 4px 0; /* Spacing it from other messages */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  text-decoration: none; /* Removing underline from link */
+  color: #1a73e8; /* Google's link blue for familiarity and visibility */
+  font-size: 16px; /* Slightly larger font for readability */
+}
+
+
+
+

@@ -1,0 +1,126 @@
+<div class="container">
+  <div class="chat-list mat-elevation-z5">
+    <div class="search-input">
+      <mat-form-field class="custom-form-field">
+        <input matInput placeholder="Search for users..." [formControl]="searchControl" [matAutocomplete]="auto" style="color: black;">
+      </mat-form-field>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let user of users$ | async" (click)="createChat(user)">
+          {{user?.displayName}}
+        </mat-option>
+      </mat-autocomplete>
+      <button mat-button (click)="showCreateGroup = true" style="color: black;">Create Group</button>
+
+      <div *ngIf="showCreateGroup">
+        <mat-form-field>
+          <input matInput placeholder="Group Name" [(ngModel)]="groupName" style="color:black">
+        </mat-form-field>
+
+        <mat-selection-list [(ngModel)]="selectedUsers" [compareWith]="compareFn">
+          <mat-list-option *ngFor="let user of users$ | async" [value]="user">
+            {{ user.displayName }}
+          </mat-list-option>
+        </mat-selection-list>
+
+        <button mat-button (click)="createGroup()" style="color:black">Create Group</button>
+      </div>
+
+    </div>
+
+
+
+      <mat-selection-list [multiple]="false" [formControl]="chatListControl">
+  <mat-divider></mat-divider>
+  <mat-list-option *ngFor="let chat of myChats$ |async" [value]="chat.id">
+    <img matListAvatar [src]="chat.chatPic ? chat.chatPic : '../../../../assets/images/profilebg.jpg'"/>
+    <p mat-line class="chat-title">
+      <span class="chat-name">
+        {{ chat.isGroup ? (chat.groupName ? chat.groupName : 'Group Chat') : chat.chatName }}
+      </span >
+      <span class="chat-date">
+          {{chat.lastMessageDate | displayDate}}
+      </span>
+    </p>
+    <p mat-line>{{chat.lastMessage}}</p>
+    <mat-divider></mat-divider>
+  </mat-list-option>
+</mat-selection-list>
+  </div>
+
+
+
+
+  <div class="messages mat-elevation-z5 ">
+    <div class="message-header" *ngIf="selectedChat$ | async as selectedChat; else noMessage">
+      <img class="header-image" [src]="selectedChat.chatPic ? selectedChat.chatPic : '../../../../assets/images/profilebg.jpg'" alt="Chat Picture"/>
+      <h2 style="color:black"> {{ selectedChat.isGroup ? (selectedChat.groupName ? selectedChat.groupName : 'Group Chat') : selectedChat.chatName }}</h2>
+    </div>
+    <ng-template #noMessage>
+      <div style="color: black;" class="message-header">
+       <h2>No Message</h2>
+      </div>
+    </ng-template>
+<mat-divider></mat-divider>
+
+
+
+<div class="chat-area">
+  <ng-container *ngIf="user$ | async as currentUser">
+    <div *ngFor="let message of messages$ | async" class="chat-bubble-container"
+    [ngClass]="{'sender': message.senderId === currentUser.uid, 'receiver': message.senderId !== currentUser.uid}">
+      <div class="chat-bubble" >
+        <div *ngIf="isGroup" class="message-sender">
+          {{ message.senderDisplayName }}
+        </div>
+
+
+        <ng-container *ngIf="message.fileUrl && message.fileType; else textMessage">
+          <ng-container *ngIf="message.fileType.startsWith('image')">
+            <a [href]="message.fileUrl">
+              <img [src]="message.fileUrl" alt="Image" style="max-width: 100%; height: auto;">
+            </a>
+          </ng-container>
+
+
+          <ng-container *ngIf="message.fileType.startsWith('video')">
+            <video controls [src]="message.fileUrl" style="max-width: 100%; height: auto;"></video>
+            <a  [href]="message.fileUrl" download target="_blank" class="download-button"></a>
+            <span class="chat-date" style="color:black">{{ message.sentDate | displayDate }}</span>
+          </ng-container>
+
+          <ng-container *ngIf="message.fileType.endsWith('pdf')">
+            <a [href]="message.fileUrl" download target="_blank" class="pdf-link">
+              <mat-icon style="color: red; font-size: 50px; margin-bottom: 10px; margin-right: 10px;">picture_as_pdf</mat-icon>
+            </a>
+          </ng-container>
+
+        </ng-container>
+
+        <ng-template #textMessage >{{ message.text }}</ng-template>
+        <br>
+        <span class="chat-date" style="color:black">{{ message.sentDate | displayDate }}</span>
+      </div>
+    </div>
+    <div #endOfChat></div>
+  </ng-container>
+</div>
+
+
+ <div class="input-area">
+  <mat-form-field appearance="outline" style="width: 90%; padding-left: 10px;">
+    <input style="color:black" [formControl]="messageControl" matInput placeholder="Enter your message..." (keydown.enter)="sendMessage()">
+    <button mat-icon-button matSuffix (click)="fileInput.click()" [disabled]="messageControl.disabled">
+        <mat-icon style="color:black">attach_file</mat-icon>
+    </button>
+    <input type="file" #fileInput style="display: none" (change)="handleFileInput($event)">
+    <button mat-icon-button matSuffix (click)="sendMessage()" [disabled]="messageControl.disabled">
+        <mat-icon style="color:black">send</mat-icon>
+    </button>
+</mat-form-field>
+
+
+</div>
+
+  </div>
+
+</div>

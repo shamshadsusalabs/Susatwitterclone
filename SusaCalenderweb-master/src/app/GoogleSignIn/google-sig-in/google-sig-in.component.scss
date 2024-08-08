@@ -1,0 +1,14 @@
+/* sig-in.component.scss */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; // This makes sure the container is as tall as the viewport
+}
+
+.sign-in-button {
+  font-size: 16px; // Adjust font size as needed
+  padding: 10px 30px; // Provides some padding around the text
+  border-radius: 8px; // Optional: adds rounded corners
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); // Optional: adds shadow for a "lifted" effect
+}

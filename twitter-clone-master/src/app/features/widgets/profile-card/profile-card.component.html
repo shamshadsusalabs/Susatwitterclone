@@ -1,0 +1,32 @@
+<article class="profile">
+  <div class="profile__container">
+    <div class="avatar">
+      <img
+        [src]="userProfile?.photoUrl"
+        alt="avatar"
+        (error)="onErrorImageUrl($event.target, userProfile.displayName)"
+      />
+      />
+    </div>
+    <div class="user-info">
+      <h6 class="user-info__name">
+        {{ userProfile?.displayName || userProfile?.email }}
+      </h6>
+      <p class="user-info__username">@{{ userProfile?.userId }}</p>
+      <div class="user-info__about">{{ userProfile?.bio }}</div>
+    </div>
+    <div class="social-info">
+      <div class="social-info__block">
+        <span class="count">{{ userProfile?.followers }}</span>
+        <span class="label">Followers</span>
+      </div>
+      <div class="social-info__block">
+        <span class="count">{{ userProfile?.following }}</span>
+        <span class="label">Following</span>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="actions__profile">My Profile</a>
+    </div>
+  </div>
+</article>

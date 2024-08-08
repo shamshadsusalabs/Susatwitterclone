@@ -1,0 +1,55 @@
+<article class="feed">
+  <ul class="feed__container">
+    <ng-container *ngFor="let tweets of feedTweets">
+      <li class="post">
+        <div class="post__avatar">
+          <img
+            [src]="tweets.createdByPhoto"
+            alt=""
+            (error)="onErrorImageUrl($event.target, tweets.createdByName)"
+          />
+        </div>
+        <div class="post__container">
+          <div class="info">
+            <h5 class="name">{{ tweets.createdByName }}</h5>
+            <span class="username">{{ tweets.createdByUsername }}</span>
+          </div>
+          <span class="date-time">{{ tweets.createdAt | customDate }}</span>
+          <div class="post" [innerHTML]="tweets.tweet"></div>
+          <div class="post-info">
+            <div class="post-info__interactions">
+              <i class="btn btn--like">
+                <fa-icon [icon]="faHeart" size="sm"></fa-icon>
+              </i>
+              <i class="btn btn--retweets">
+                <fa-icon [icon]="faRetweet" size="sm"></fa-icon>
+              </i>
+              <i class="btn btn--share">
+                <fa-icon [icon]="faShare" size="sm"></fa-icon>
+              </i>
+              <span class="info">241k</span>
+            </div>
+            <div class="post-info__comments">45 Comments</div>
+          </div>
+          <div class="actions">
+            <button class="actions__btn actions__btn--like">
+              <fa-icon [icon]="faHeart" size="sm"></fa-icon>
+              <span class="btn__text">Like</span>
+            </button>
+            <button class="actions__btn actions__btn--reweet">
+              <fa-icon [icon]="faRetweet" size="sm"></fa-icon>
+              <span class="btn__text">Retweet</span>
+            </button>
+            <button class="actions__btn actions__btn--comment">
+              <fa-icon [icon]="faComment" size="sm"></fa-icon>
+              <span class="btn__text">Comment</span>
+            </button>
+            <button class="actions__btn actions__btn--share">
+              <fa-icon [icon]="faShare" size="sm"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </li>
+    </ng-container>
+  </ul>
+</article>
